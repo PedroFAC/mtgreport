@@ -30,8 +30,9 @@ export default function ViewReport() {
           width={600}
         />
         <Text type="secondary">{report.date}</Text>
-        {report.primer && <Text>{report.primer}</Text>}
+        {report.description && <Text>{report.description}</Text>}
 
+        <Text>Format: {report.format}</Text>
         <Text>Number of players: {report.players}</Text>
         <Text>Number of rounds: {report.rounds}</Text>
         <Title level={3}>Results</Title>

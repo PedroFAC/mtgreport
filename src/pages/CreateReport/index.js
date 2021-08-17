@@ -1,17 +1,26 @@
-import { InputNumber, PageHeader, Space } from "antd";
-import React from "react";
-import { Form, Input, Button } from "antd";
-import { useNavigate } from "react-router-dom";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  PageHeader,
+  Select,
+  Space,
+} from "antd";
+import { Option } from "antd/lib/mentions";
 import Title from "antd/lib/typography/Title";
-import { useStoreActions } from "easy-peasy";
-import { v4 as uuid } from "uuid";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import moment from "moment";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 export default function CreateReport() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const createReport = useStoreActions((actions) => actions.createReport);
+  const formats = useStoreState((state) => state.formats);
 
   const onFinish = (values) => {
     console.log("Finish:", values);
@@ -80,9 +89,13 @@ export default function CreateReport() {
           name="format"
           rules={[{ required: true, message: "Missing format" }]}
         >
-          <Input />
+          <Select allowClear>
+            {formats.map((format) => (
+              <Option value={format}>{format}</Option>
+            ))}
+          </Select>
         </Form.Item>
-        <Form.Item label="Event Primer" name="primer">
+        <Form.Item label="Event Description" name="description">
           <Input.TextArea />
         </Form.Item>
         <Form.Item
